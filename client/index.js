@@ -22,7 +22,8 @@ const chatContainer = document.querySelector('#chat-container');
 let loadInterval;
 
 function loader(element){
-  element.textContent = '';
+  element.textContent = 'jk';
+  console.log('loader');
 
   loadInterval = setInterval(() => {
     element.textContent += '.';
@@ -61,7 +62,7 @@ function chatStripe(isAi, value, uniqueId){
       <div class="wrapper ${isAi && 'ai'}">
         <div class="chat">
           <div class="profile">
-            <img src="${isAi ? bor : user}" alt="${isAi ? 'bot' : 'user'}" />
+            <img src="${isAi ? bot : user}" alt="${isAi ? 'bot' : 'user'}" />
           </div>
           <div class="message" id="${uniqueId}">
             ${value}
