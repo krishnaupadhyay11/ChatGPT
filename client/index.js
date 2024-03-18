@@ -87,6 +87,27 @@ async function handleSubmit(e){
   chatContainer.scrollTop = chatContainer.scrollHeight;
   const messageDiv = document.getElementById(uniqueId);
   loader(messageDiv);
+
+  // fetch data from server -> bot's response
+
+  const response = await fetch('http://localhost:8000', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      prompt: data.get('prompt')
+    })
+  })
+
+  clearInterval(loadInterval);
+  
+
+  if(response.ok){
+    const { bot } = await response.json();
+    clearInterval(loadInterval);
+    messageDiv.textContent = bot;
+  }
 }
 
 form.addEventListener('submit', handleSubmit);
