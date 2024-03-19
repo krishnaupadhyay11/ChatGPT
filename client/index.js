@@ -64,9 +64,7 @@ function chatStripe(isAi, value, uniqueId){
           <div class="profile">
             <img src="${isAi ? bot : user}" alt="${isAi ? 'bot' : 'user'}" />
           </div>
-          <div class="message" id="${uniqueId}">
-            ${value}
-          </div>
+          <div class="message" id="${uniqueId}">${value}</div>
         </div>
       </div>
     `
@@ -79,6 +77,7 @@ async function handleSubmit(e){
 
   //user's chatStripe
   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+  console.log(data.get('prompt'));
   form.reset();
 
   //bot's chatStripe
@@ -101,12 +100,17 @@ async function handleSubmit(e){
   })
 
   clearInterval(loadInterval);
-  
+  messageDiv.textContent = 'Bot is typing...'; 
 
   if(response.ok){
     const { bot } = await response.json();
-    clearInterval(loadInterval);
-    messageDiv.textContent = bot;
+    const parsedData = bot.trim();
+
+    typeText(messageDiv, parsedData);
+  } else {
+    const err = response.text();
+    messageDiv.textContent = `Error: ${err}`;
+    console.error(err);
   }
 }
 
