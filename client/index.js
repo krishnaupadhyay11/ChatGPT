@@ -22,7 +22,7 @@ const chatContainer = document.querySelector('#chat-container');
 let loadInterval;
 
 function loader(element){
-  element.textContent = 'jk';
+  element.textContent = '';
   console.log('loader');
 
   loadInterval = setInterval(() => {
